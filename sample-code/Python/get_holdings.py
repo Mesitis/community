@@ -64,10 +64,6 @@ if login_role == 'Partneradmin':
     #take the first users in the list as the switch_user_id
     switch_user_id = partner_users[0]
 
-#	print json.dumps(response.json(), indent=4, sort_keys = True)
-
-
-
 #in case the user is a partner_admin then switch_user_id is any one of the users it has access to (here we take the first one from the list)
 #in case the user is a regular customer then the switch_user_id = user_id for this customer
 

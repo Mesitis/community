@@ -1,10 +1,9 @@
 '''
 - login and get token
 - process 2FA if 2FA is setup for this account
-- if the user is a regular customer then get a list of child accounts for this user
-- if the user is a partner_admin then get a list of child accounts for the first user from the list of users this partner admin has access to
+- if the user is a regular customer then get securities for this user
+- if the user is a partner_admin then get securities for the first user from the list of users this partner admin has access to
 '''
-
 
 import requests
 import json
@@ -12,11 +11,11 @@ import json
 get_token_url = "https://api.canopy.cloud:443/api/v1/sessions/"		
 validate_otp_url = "https://api.canopy.cloud:443/api/v1/sessions/otp/validate.json" #calling the production server for OTP authentication
 get_partner_users_url = "https://api.canopy.cloud:443/api/v1/admin/users.json"
-get_children_url = "https://api.canopy.cloud:443/api/v1/child_accounts.json"
+get_user_securities_url = "https://api.canopy.cloud:443/api/v1/user_securities.json"
 
 #please replace below with your username and password over here
 username = 'login_name'
-password = 'xxxxxxxx'
+password = 'xxxxxxxxxxx'
 
 #please enter the OTP token in case it is enabled
 otp_code = '123456'
@@ -35,6 +34,7 @@ print json.dumps(response.json(), indent=4, sort_keys = True)
 
 token = response.json()['token']
 login_flow = response.json()['login_flow']
+
 #in case 2FA is enabled use the OTP code to get the second level of authentication
 if login_flow == '2fa_verification':
 	headers['Authorization'] = token
@@ -67,7 +67,8 @@ if login_role == 'Partneradmin':
 #in case the user is a partner_admin then switch_user_id is any one of the users it has access to (here we take the first one from the list)
 #in case the user is a regular customer then the switch_user_id = user_id for this customer
 
-#Headers for get request to get children
+querystring = {"page":"1","per_page":"20"}
+
 headers = {
     'authorization': token,
     'username': username,
@@ -75,6 +76,6 @@ headers = {
     'x-app-switch-user': str(switch_user_id)
     }
 
-response = requests.request("GET", get_children_url, headers=headers)
+response = requests.request("GET", get_user_securities_url, headers=headers, params=querystring)
 
 print json.dumps(response.json(), indent=4, sort_keys = True)
