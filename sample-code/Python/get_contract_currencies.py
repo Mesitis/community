@@ -14,8 +14,8 @@ get_partner_users_url = "https://api.canopy.cloud:443/api/v1/admin/users.json"
 get_contract_currencies_url = "https://api.canopy.cloud:443/api/v1/contract_currencies.json"
 
 #please replace below with your username and password over here
-username = 'nikhil.pant'
-password = 'Innovation!'
+username = 'login_name'
+password = 'xxxxxxxx'
 
 #please enter the OTP token in case it is enabled
 otp_code = '123456'
