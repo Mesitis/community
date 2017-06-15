@@ -1,8 +1,8 @@
 '''
 - login and get token
 - process 2FA if 2FA is setup for this account
-- if the user is a regular customer then calculate a summary for this user
-- if the user is a partner_admin then calculate summary for the first user from the list of users this partner admin has access to
+- if the user is a regular customer then calculate portfolio summary for this user
+- if the user is a partner_admin then calculate portfolio summary for the first user from the list of users this partner admin has access to
 '''
 
 import requests
@@ -14,8 +14,8 @@ get_partner_users_url = "https://api.canopy.cloud:443/api/v1/admin/users.json"
 get_summary_url = "https://api.canopy.cloud:443/api/v1/portfolio/summary.json"
 
 #please replace below with your username and password over here
-username = 'login_name'
-password = 'xxxxxxxx'
+username = 'nikhil_pant'
+password = 'Innovation!'
 
 #please enter the OTP token in case it is enabled
 otp_code = '123456'
@@ -67,17 +67,16 @@ if login_role == 'Partneradmin':
 #in case the user is a partner_admin then switch_user_id is any one of the users it has access to (here we take the first one from the list)
 #in case the user is a regular customer then the switch_user_id = user_id for this customer
 
-import requests
+url = "https://api.canopy.cloud:443/api/v1/portfolio/summary.json"
 
-date = "15-03-2017"
-querystring = {"date":date,"date_type":"traded_on"}
+querystring = {"date":"04-04-2016","date_type":"traded_on","currency":"USD"}
 
 headers = {
     'authorization': token,
-    'x-app-switch-user': str(switch_user_id),
-    'content-type': "application/x-www-form-urlencoded; charset=UTF-8"
+    'content-type': "application/x-www-form-urlencoded; charset=UTF-8",
+    'x-app-switch-user': str(switch_user_id)
     }
 
-response = requests.request("GET", get_summary_url, headers=headers, params=querystring)
+response = requests.request("GET", url, headers=headers, params=querystring)
 
 print json.dumps(response.json(), indent=4, sort_keys = True)
