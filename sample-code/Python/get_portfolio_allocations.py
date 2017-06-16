@@ -1,8 +1,8 @@
 '''
 - login and get token
 - process 2FA if 2FA is setup for this account
-- if the user is a regular customer then calculate portfolio summary for this user
-- if the user is a partner_admin then calculate portfolio summary for the first user from the list of users this partner admin has access to
+- if the user is a regular customer then get a list of transactions for this user
+- if the user is a partner_admin then get a list of transactions for the first user from the list of users this partner admin has access to
 '''
 
 import requests
@@ -10,12 +10,14 @@ import json
 
 get_token_url = "https://api.canopy.cloud:443/api/v1/sessions/"		
 validate_otp_url = "https://api.canopy.cloud:443/api/v1/sessions/otp/validate.json" #calling the production server for OTP authentication
+get_transactions_url = "https://api.canopy.cloud:443/api/v1/transactions.json"
 get_partner_users_url = "https://api.canopy.cloud:443/api/v1/admin/users.json"
-get_summary_url = "https://api.canopy.cloud:443/api/v1/portfolio/summary.json"
+get_portfolio_allocations_url = "https://api.canopy.cloud:443/api/v1/portfolio/allocations.json"
+
 
 #please replace below with your username and password over here
-username = 'nikhil_pant'
-password = 'Innovation!'
+username = 'login_name'
+password = 'passwordxxx'
 
 #please enter the OTP token in case it is enabled
 otp_code = '123456'
@@ -64,6 +66,10 @@ if login_role == 'Partneradmin':
     #take the first users in the list as the switch_user_id
     switch_user_id = partner_users[0]
 
+#	print json.dumps(response.json(), indent=4, sort_keys = True)
+
+
+
 #in case the user is a partner_admin then switch_user_id is any one of the users it has access to (here we take the first one from the list)
 #in case the user is a regular customer then the switch_user_id = user_id for this customer
 
@@ -71,10 +77,7 @@ if login_role == 'Partneradmin':
 date = "04-04-2016"
 date_type = "traded_on"
 
-#change currency to change what currency to show portfolio sumary in
-currency = "USD"
-
-querystring = {"date":date,"date_type":date_type,"currency":currency}
+querystring = {"date":date,"date_type":date_type}
 
 headers = {
     'authorization': token,
@@ -82,6 +85,6 @@ headers = {
     'x-app-switch-user': str(switch_user_id)
     }
 
-response = requests.request("GET", get_summary_url, headers=headers, params=querystring)
+response = requests.request("GET", get_portfolio_allocations_url, headers=headers, params=querystring)
 
-print json.dumps(response.json(), indent=4, sort_keys = True)
+print json.dumps(response.json(), indent=4, sort_keys = False)
