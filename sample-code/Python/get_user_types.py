@@ -1,16 +1,15 @@
 '''
 - login and get token
 - process 2FA if 2FA is setup for this account
-- get a list of child accounts for one this partner admin has access to
-  throws an error if user is not partner admin
+- returns all user types if user is a partner admin (or above) - else error
 '''
-
 import requests
 import json
 
 get_token_url = "https://api.canopy.cloud:443/api/v1/sessions/"		
 validate_otp_url = "https://api.canopy.cloud:443/api/v1/sessions/otp/validate.json" #calling the production server for OTP authentication
 get_partner_users_url = "https://api.canopy.cloud:443/api/v1/admin/users.json"
+get_user_types_url = "https://api.canopy.cloud:443/api/v1/admin/users/types.json"
 
 #please replace below with your username and password over here
 username = 'login_name'
@@ -42,36 +41,11 @@ if login_flow == '2fa_verification':
 	print json.dumps(response.json(), indent=4, sort_keys = True) #print response.text
 	token = response.json()['token']
 
-login_role = response.json()['role']
-switch_user_id = response.json()['id']
-
-if login_role == 'Partneradmin':
-
-    #print "============== partner's users ==========="
-    headers = {
-        'authorization': token,
-        'content-type': "application/x-www-form-urlencoded; charset=UTF-8"
-        }
-
-    partner_users = []
-
-    response = requests.request("GET", get_partner_users_url, headers=headers)
-    for parent_user in response.json()['users']:
-        partner_users.append(parent_user['id'])
-
-    #print partner_users
-    #take the first users in the list as the switch_user_id
-    switch_user_id = partner_users[0]
-
-#in case the user is a partner_admin then switch_user_id is any one of the users it has access to (here we take the first one from the list)
-get_partner_admin_users_children_url = "https://api.canopy.cloud:443/api/v1/admin/users/"+str(switch_user_id)+"/children.json"
-
 headers = {
     'authorization': token,
     'content-type': "application/x-www-form-urlencoded; charset=UTF-8"
     }
 
-response = requests.request("GET", get_partner_admin_users_children_url, headers=headers)
+response = requests.request("GET", get_user_types_url, headers=headers)
 
-#if user is not partner admin will return an error!
 print json.dumps(response.json(), indent=4, sort_keys = True)
