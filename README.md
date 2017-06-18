@@ -1,7 +1,15 @@
 ## Canopy Developer Community Page
 *Sample code and all things community*
 
-[Canopy](https:/canopy.cloud) is a data aggregation and analytics platform targeting the high networth clients. This page is meant for people who are looking to develop applications on our platform and contains sample code and descriptions of APIs.
+[Canopy](https:/canopy.cloud) is a data aggregation and analytics platform. We are currently targeting the high networth client segment. 
+
+High Networth clients have complex holdings. These holdings are spread over financial (e.g. bonds and equities) and non-financial (e.g. real estate and art) assets all over the world with multiple custodians. Data about these holdings is available in various non standard formats ranging from proper data feeds and PDF statements all the way down to Excel sheets and hand written notes.
+
+Our mission statement is to help aggregate this data (irrespective of data source), store them in a standardized format, check everyday for data consistency and provide a (usually daily) mark-to-market. This data is then available via Open APIs for all sorts of use cases ranging from simply tabulation and doing your taxes to complex analytics / trade suitability checks / trade suggestions / digital advice / performance reporting and benchmarking etc.
+
+Canopy currently offers a turnkey service where we collect and upload your data from multiple sources and ensure data consistency. We also provide a browser based front end, an Excel Front End, Open APIs, PDF and Ppt Report Generators, Emailing programs etc. etc. 
+
+However we are very open to people who want to build other (or competing) apps / products on our platform. This page is meant for people who are looking to develop applications on our platform and contains sample code and descriptions of APIs. 
 
 Please email us for further information (including if you want a demo login)
 
