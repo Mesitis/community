@@ -1,8 +1,8 @@
 '''
 - login and get token
 - process 2FA if 2FA is setup for this account
-- if the user is a regular customer then get a url for explainer data for this user
-- if the user is a partner_admin then get a url for explainer data for the first user from the list of users this partner admin has access to
+- if the user is a regular customer then get a list of explainer records for this user
+- if the user is a partner_admin then get aa list of explainer records for the first user from the list of users this partner admin has access to
 '''
 
 import requests
@@ -11,11 +11,11 @@ import json
 get_token_url = "https://api.canopy.cloud:443/api/v1/sessions/"		
 validate_otp_url = "https://api.canopy.cloud:443/api/v1/sessions/otp/validate.json" #calling the production server for OTP authentication
 get_partner_users_url = "https://api.canopy.cloud:443/api/v1/admin/users.json"
-get_explainer_download_url = "https://api.canopy.cloud:443/api/v1/explainer/download.json"
+get_explainer_list_url = "https://api.canopy.cloud:443/api/v1/explainer/refactor_records.json"
 
 #please replace below with your username and password over here
 username = 'login_name'
-password = 'xxxxxxxx'
+password = 'xxxxxxxxx'
 
 #please enter the OTP token in case it is enabled
 otp_code = '123456'
@@ -78,6 +78,6 @@ headers = {
     'x-app-switch-user': str(switch_user_id)
     }
 
-response = requests.request("GET", get_explainer_download_url, headers=headers, params=querystring)
+response = requests.request("GET", get_explainer_list_url, headers=headers, params=querystring)
 
 print json.dumps(response.json(), indent=4, sort_keys = True)
