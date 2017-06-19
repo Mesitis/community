@@ -1,7 +1,7 @@
 '''
 - login and get token
 - process 2FA if 2FA is setup for this account
-- returns all partners if user is a partner admin (or above) - else error
+- returns a random, available, appropriate username
 '''
 import requests
 import json
@@ -9,7 +9,7 @@ import json
 get_token_url = "https://api.canopy.cloud:443/api/v1/sessions/"		
 validate_otp_url = "https://api.canopy.cloud:443/api/v1/sessions/otp/validate.json" #calling the production server for OTP authentication
 get_partner_users_url = "https://api.canopy.cloud:443/api/v1/admin/users.json"
-get_partners_url = "https://api.canopy.cloud:443/api/v1/admin/partners.json"
+get_random_username_url = "https://api.canopy.cloud:443/api/v1/admin/usernames/new.json"
 
 #please replace below with your username and password over here
 username = 'login_name'
@@ -46,6 +46,6 @@ headers = {
     'content-type': "application/x-www-form-urlencoded; charset=UTF-8"
     }
 
-response = requests.request("GET", get_partners_url, headers=headers)
+response = requests.request("GET", get_random_username_url, headers=headers)
 
 print json.dumps(response.json(), indent=4, sort_keys = True)
