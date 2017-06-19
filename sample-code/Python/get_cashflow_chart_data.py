@@ -70,7 +70,7 @@ if login_role == 'Partneradmin':
 #replace date to get holdings from any given date
 date_from = "15-03-2016"
 date_to = "15-03-2017"
-querystring = {"date_from":date_from,"date_to":date_to}
+querystring = {"from_date":date_from,"to_date":date_to}
 headers = {
     'authorization': token,
     'username': username,
