@@ -10,14 +10,14 @@ import json
 get_token_url = "https://api.canopy.cloud:443/api/v1/sessions/"		
 validate_otp_url = "https://api.canopy.cloud:443/api/v1/sessions/otp/validate.json" #calling the production server for OTP authentication
 get_partner_users_url = "https://api.canopy.cloud:443/api/v1/admin/users.json"
-get_token_url = 'https://cs-api.canopy.cloud:443/api/v1/sessions.json'
-validate_otp_url = "https://cs-api.canopy.cloud:443/api/v1/sessions/otp/validate.json" #calling the production server for OTP authentication
+get_token_url = 'https://api.canopy.cloud:443/api/v1/sessions.json'
+validate_otp_url = "https://api.canopy.cloud:443/api/v1/sessions/otp/validate.json" #calling the production server for OTP authentication
 
 
 
 #please replace below with your username and password over here
-username = 'tanmai'
-password = 'joshualives'
+username = 'usernamexxxx'
+password = 'passwordxxxx'
 
 #please enter the OTP token in case it is enabled
 otp_code = '259060'
