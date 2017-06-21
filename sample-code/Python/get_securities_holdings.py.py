@@ -1,7 +1,7 @@
 '''
 - login and get token
 - process 2FA if 2FA is setup for this account
-- gets list of market indicators within given dates
+- get a holdings summary of a given security
 '''
 
 import requests
@@ -9,14 +9,12 @@ import json
 
 get_token_url = "https://api.canopy.cloud:443/api/v1/sessions/"		
 validate_otp_url = "https://api.canopy.cloud:443/api/v1/sessions/otp/validate.json" #calling the production server for OTP authentication
-get_transactions_url = "https://api.canopy.cloud:443/api/v1/transactions.json"
 get_partner_users_url = "https://api.canopy.cloud:443/api/v1/admin/users.json"
-get_market_indicators_url = "https://api.canopy.cloud:443/api/v1/securities/market.json"
-
+get_securities_holdings_url = "https://api.canopy.cloud:443/api/v1/securities/holdings.json"
 
 #please replace below with your username and password over here
 username = 'login_name'
-password = 'xxxxxxxxx'
+password = 'xxxxxxxx'
 
 #please enter the OTP token in case it is enabled
 otp_code = '123456'
@@ -44,41 +42,16 @@ if login_flow == '2fa_verification':
 	print json.dumps(response.json(), indent=4, sort_keys = True) #print response.text
 	token = response.json()['token']
 
-login_role = response.json()['role']
-switch_user_id = response.json()['id']
+#change ticker to search for a different security
+ticker = "AAPL_US"
 
-if login_role == 'Partneradmin':
-
-    #print "============== partner's users ==========="
-    headers = {
-        'authorization': token,
-        'content-type': "application/x-www-form-urlencoded; charset=UTF-8"
-        }
-
-    partner_users = []
-
-    response = requests.request("GET", get_partner_users_url, headers=headers)
-    for parent_user in response.json()['users']:
-        partner_users.append(parent_user['id'])
-
-    #print partner_users
-    #take the first users in the list as the switch_user_id
-    switch_user_id = partner_users[0]
-
-#in case the user is a partner_admin then switch_user_id is any one of the users it has access to (here we take the first one from the list)
-#in case the user is a regular customer then the switch_user_id = user_id for this customer
-
-#change dates as needed
-from_date = "2016-12-31"
-to_date = "2017-04-21"
-
-querystring = {"from_date":from_date,"to_date":to_date}
+querystring = {"ticker":ticker}
 
 headers = {
     'authorization': token,
-    'content-type': "application/x-www-form-urlencoded; charset=UTF-8"
+    'content-type': "application/x-www-form-urlencoded; charset=UTF-8",
     }
 
-response = requests.request("GET", get_market_indicators_url, headers=headers, params=querystring)
+response = requests.request("GET", get_securities_holdings_url, headers=headers, params=querystring)
 
 print json.dumps(response.json(), indent=4, sort_keys = True)
