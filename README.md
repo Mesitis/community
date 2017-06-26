@@ -18,7 +18,7 @@ Please email us for further information (including if you want a demo login)
 
 
 ### Canopy Open APIs
-All (well almost all !!) data inside Canopy can be accessed via APIs ... a small sample of these APIs is [here](https://documenter.getpostman.com/view/884147/canopy-api-calls/6YtywA3)
+All (well almost all !!) data inside Canopy can be accessed via APIs ... a Postman description page of these APIs is [here](https://documenter.getpostman.com/view/884147/canopy-api-calls/6YtywA3)
 
 ### Canopy midAPI server
 An analytics server that pulls a particular users data from Canopy (via APIs - requires regular authentication to access the data being downloaded) and does a large number of analytics on it. Accessible via Open APIs .. sample [here](https://documenter.getpostman.com/view/884147/canopy-midapi-calls/6YwzFUx) 
