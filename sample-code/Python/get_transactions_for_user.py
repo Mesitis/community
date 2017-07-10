@@ -16,8 +16,8 @@ get_partner_users_url = "https://api.canopy.cloud:443/api/v1/admin/users.json"
 
 
 #please replace below with your username and password over here
-username = 'username'
-password = 'passwordxxx'
+username = 'canopy_demo'
+password = 'TechGeek$123'
 
 #please enter the OTP token in case it is enabled
 otp_code = '123456'
@@ -88,5 +88,7 @@ transaction_header = {
 transaction_endpoint = get_transactions_url + '?page=' + str(transaction_page) + '&per_page=' + str(transactions_per_page) + '&for_current_user=true&output_format=json&all_pages=true'
 
 transactions = requests.get(transaction_endpoint, headers=transaction_header)
+
+print '================ transactions are here ================='
 
 print json.dumps(transactions.json(), indent=4, sort_keys = False)
