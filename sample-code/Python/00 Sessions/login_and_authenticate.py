@@ -18,28 +18,39 @@
 import requests
 import json
 
+
 get_token_url = "https://api.canopy.cloud:443/api/v1/sessions/"		
 validate_otp_url = "https://api.canopy.cloud:443/api/v1/sessions/otp/validate.json" #calling the production server for OTP authentication
 login_and_authenticate_url = "https://api.canopy.cloud:443/api/v1/sessions/"
 
 #please replace below with your username and password over here
-username = 'userxxx'
-password = 'passxxx'
+username = 'canopy_demo531' #'userxxx'
+password = 'Canopy@432' #'passxxx'
 
 #please enter the OTP token in case it is enabled
 otp_code = '123456'
 
+payload = {}
+user = {}
+user['username'] = username
+user['password'] =  password
+payload['user'] = user
+#print (payload)
 
-#first call for a fresh token
-payload = "user%5Busername%5D=" + username + "&user%5Bpassword%5D=" + password
 headers = {
-	'accept': "application/json",
-	'content-type':"application/x-www-form-urlencoded"
-	}
+    'Accept': "*/*",
+    'Content-Type': "application/json",
+    'X-App-Id': "4.25652.5",
+    'Cache-Control': "no-cache",
+    'Host': "api.canopy.cloud:443",
+    'accept-encoding': "gzip, deflate",
+    'cache-control': "no-cache"
+    }
 
-response = requests.request("POST", get_token_url, data=payload, headers=headers)
 
-print json.dumps(response.json(), indent=4, sort_keys = True)
+response = requests.request("POST", get_token_url, data=json.dumps(payload), headers=headers)
+
+print (json.dumps(response.json(), indent=4, sort_keys = True))
 
 token = response.json()['token']
 login_flow = response.json()['login_flow']
@@ -49,17 +60,19 @@ if login_flow == '2fa_verification':
 	headers['Authorization'] = token
 	payload = 'otp_code=' + otp_code
 	response = requests.request("POST", validate_otp_url, data=payload, headers=headers)
-	print json.dumps(response.json(), indent=4, sort_keys = True) #print response.text
+	print (json.dumps(response.json(), indent=4, sort_keys = True)) 
 	token = response.json()['token']
 
-url = "https://api.canopy.cloud:443/api/v1/sessions/"
+	url = "https://api.canopy.cloud:443/api/v1/sessions/"
 
-payload = {"user[username]": username, "user[password]": password}
-headers = {
-    'accept': "application/json",
-    'content-type': "application/x-www-form-urlencoded"
-    }
+	payload = {"user[username]": username, "user[password]": password}
+	headers = {
+	    'accept': "application/json",
+	    'content-type': "application/x-www-form-urlencoded"
+	    }
 
-response = requests.request("POST", url, data=payload, headers=headers)
+	response = requests.request("POST", url, data=payload, headers=headers)
 
-print json.dumps(response.json(), indent=4, sort_keys = True)
+	print (json.dumps(response.json(), indent=4, sort_keys = True))
+
+print (token)
