@@ -24,8 +24,8 @@ validate_otp_url = "https://api.canopy.cloud:443/api/v1/sessions/otp/validate.js
 login_and_authenticate_url = "https://api.canopy.cloud:443/api/v1/sessions/"
 
 #please replace below with your username and password over here
-username = 'userxxx'
-password = 'passxxx'
+username = 'canopy_demo531' #'userxxx'
+password = 'Canopy@432' #'passxxx'
 
 #please enter the OTP token in case it is enabled
 otp_code = '123456'
